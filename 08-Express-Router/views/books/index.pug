@@ -1,0 +1,30 @@
+h1 Books
+
+h4
+  a(href="/") Back Home
+
+h4
+  a(href="/books/create") Create New A Book
+
+h4
+  a(href="/books/") Show All Books
+
+form(action="/books/search", method='GET')
+  input(type="text", name='q', placeholder='Search With Title')
+  button Search
+  
+table(style="width: 400px; text-align: left")
+  tr
+    th Title
+    th View
+    th Edit
+    th Delete
+  each book in books
+    tr
+      td= book.title
+      td 
+        a(href="/books/" + book.id) View
+      td 
+        a(href="/books/" + book.id + '/edit') Edit
+      td  
+        a(href="/books/" + book.id + "/delete") Delete
