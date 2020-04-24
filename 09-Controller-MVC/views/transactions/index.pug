@@ -10,12 +10,15 @@ table(style="width: 400px; text-align: left")
   tr
     th User Name
     th Book Title
+    th isComplete
     th Edit
     th Delete
   each transaction in transactions
     tr
       td= transaction.userName
       td= transaction.bookTitle
+      td 
+        a(href="/transactions/" + transaction.id + '/edit') Complete
       td 
         a(href="/transactions/" + transaction.id + '/edit') Edit
       td  
