@@ -30,8 +30,20 @@ module.exports.delete = (req, res) => {
   res.redirect("/transactions");
 };
 
+module.exports.complete = (req, res) => {
+  var id = req.params.id;
+  db.get("transactions")
+    .find({ id: id })
+    .assign({
+      isComplete: true,
+    })
+    .write();
+  res.redirect("/transactions");
+};
+
 module.exports.postCreate = (req, res) => {
   req.body.id = shortid.generate();
+  req.body.isComplete = false;
   db.get("transactions").push(req.body).write();
   res.redirect("/transactions");
 };

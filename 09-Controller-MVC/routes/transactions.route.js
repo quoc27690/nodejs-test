@@ -11,6 +11,8 @@ router.get("/:id/edit", transactionsController.edit);
 
 router.get("/:id/delete", transactionsController.delete);
 
+router.get("/:id/complete", transactionsController.complete);
+
 router.post("/create", transactionsController.postCreate);
 
 router.post("/edit", transactionsController.postEdit);

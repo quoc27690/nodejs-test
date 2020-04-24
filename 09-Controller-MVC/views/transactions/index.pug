@@ -6,7 +6,7 @@ h4
 h4
   a(href="/transactions/create") Create New A Transaction
 
-table(style="width: 400px; text-align: left")
+table(style="width: 500px; text-align: left")
   tr
     th User Name
     th Book Title
@@ -17,8 +17,11 @@ table(style="width: 400px; text-align: left")
     tr
       td= transaction.userName
       td= transaction.bookTitle
-      td 
-        a(href="/transactions/" + transaction.id + '/edit') Complete
+      td
+        if !transaction.isComplete
+          a(href="/transactions/" + transaction.id + '/complete') Not complete
+        else 
+          a Completed
       td 
         a(href="/transactions/" + transaction.id + '/edit') Edit
       td  
