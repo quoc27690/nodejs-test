@@ -1,0 +1,31 @@
+extends ../../layouts/common
+
+block content
+
+  h1 Users
+
+  h4
+    a(href="/") Back Home
+
+  h4
+    a(href="/users/create") Create New A User
+
+  h4
+    a(href="/users/") Show All Users
+
+  form(action="/users/search", method='GET')
+    input(type="text", name='q', placeholder='Search With Name')
+    button Search
+    
+  table(style="width: 400px; text-align: left")
+    tr
+      th Name
+      th Edit
+      th Delete
+    each user in users
+      tr
+        td= user.name
+        td 
+          a(href="/users/" + user.id + '/edit') Edit
+        td  
+          a(href="/users/" + user.id + "/delete") Delete

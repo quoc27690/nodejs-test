@@ -1,0 +1,17 @@
+extends ../../layouts/common
+
+block content
+
+  h1 Create User  
+
+  if errors
+    each error in errors
+      div(class='alert alert-danger')= error
+
+  form(action="/users/create", method='POST')
+    div(class='form-group')
+      label Name
+      input(type="text", name='name', class='form-control', value= values ? values.name : '')
+      label Phone
+      input(type="text", name='phone', class='form-control', value= values ? values.phone : '')
+    button(class='btn btn-primary') Create

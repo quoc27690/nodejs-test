@@ -1,0 +1,22 @@
+extends ../../layouts/common
+
+block content
+
+  h1 Edit User
+
+  form(action="/users/edit", method='POST')
+    table
+      tr
+        td
+          label ID
+        td
+          input(type="text", name='id', value=user.id)
+      tr
+        td
+          label Name
+        td
+          input(type="text", name='name', value=user.name)
+      tr
+        td
+        td
+          button Edit
