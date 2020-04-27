@@ -8,7 +8,6 @@ module.exports.postLogin = (req, res) => {
   var email = req.body.email;
   var password = req.body.password;
   var user = db.get("users").find({ email: email }).value();
-  req.body.wrongLoginCount = 0;
 
   if (!user) {
     res.render("auth/login", {
@@ -20,12 +19,30 @@ module.exports.postLogin = (req, res) => {
 
   var comparePassword = bcrypt.compareSync(password, user.password);
 
+  // if (!comparePassword) {
+  //   res.render("auth/login", {
+  //     errors: ["Wrong password"],
+  //     values: req.body,
+  //   });
+  //   return;
+  // }
+
   if (!comparePassword) {
-    res.render("auth/login", {
-      errors: ["Wrong password"],
-      values: req.body,
-    });
-    return;
+    user.wrongLoginCount += 1;
+    if (user.wrongLoginCount <4) {
+      res.render("auth/login", {
+        errors: [`Wrong password Time: ${user.wrongLoginCount}`],
+        values: req.body,
+      });
+      return;
+    }
+    if (user.wrongLoginCount >=4) {
+      res.render("auth/login", {
+        errors: ['Your account has been locked!'],
+        values: req.body,
+      });
+      return;
+    }
   }
 
   // Trước khi redirect sẽ set cho 1 cái cookie

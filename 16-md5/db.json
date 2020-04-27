@@ -23,7 +23,8 @@
       "email": "quoc@",
       "password": "$2b$10$udPSKU/sqTPnJfxY1IZfBeBipzzwKuxNYgpKjHcEjiCDbYTwWCm8.",
       "isAdmin": "true",
-      "id": "jCP2oyITt"
+      "id": "jCP2oyITt",
+      "wrongLoginCount": 0
     },
     {
       "name": "thao",
@@ -31,7 +32,17 @@
       "email": "thao@",
       "password": "$2b$10$NOM9MiRD4yMc4JNKlMTly.XeMZgUopT7H2WtkBS1LsYzS0NEj5pse",
       "isAdmin": "false",
-      "id": "FmlLrQOjW"
+      "id": "FmlLrQOjW",
+      "wrongLoginCount": 0
+    },
+    {
+      "name": "tit",
+      "phone": "0772548486",
+      "email": "tit@",
+      "password": "$2b$10$zZhPCBrmuS4bYz1IMC9hceuMbT0R/CANz5uPJUhX0nGgJlXxpGgYm",
+      "isAdmin": "false",
+      "id": "hY6QeOUi2",
+      "wrongLoginCount": 0
     }
   ],
   "transactions": [

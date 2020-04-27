@@ -47,6 +47,7 @@ module.exports.postCreate = (req, res) => {
 
   var saltRounds = 10
   req.body.password = bcrypt.hashSync(req.body.password, saltRounds)
+  req.body.wrongLoginCount = 0
 
   db.get("users").push(req.body).write();
   res.redirect("/users");
