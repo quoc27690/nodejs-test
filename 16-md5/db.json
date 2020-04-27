@@ -40,6 +40,20 @@
       "password": "123123",
       "isAdmin": "false",
       "id": "79MQqWnrY"
+    },
+    {
+      "name": "bathu",
+      "phone": "0772548486",
+      "email": "bathu@",
+      "isAdmin": "false",
+      "id": "19v0OdlgW"
+    },
+    {
+      "name": "medu",
+      "phone": "0772548486",
+      "email": "medu@",
+      "isAdmin": "false",
+      "id": "26QPHO6vO"
     }
   ],
   "transactions": [
