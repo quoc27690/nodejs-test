@@ -23,11 +23,11 @@ module.exports.postLogin = (req, res) => {
 
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
   const msg = {
-    to: "quoc27690@gmail.com",
-    from: "bathu276@gmail.com",
+    to: "bathu276@gmail.com",
+    from: "quoc27690@gmail.com",
     subject: "Wrong password",
-    text: "and easy to do anywhere, even with Node.js",
-    html: "<strong>and easy to do anywhere, even with Node.js</strong>",
+    text: "Wrong password",
+    html: "Wrong password",
   };
 
   if (!comparePassword) {
