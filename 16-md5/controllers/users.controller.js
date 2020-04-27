@@ -46,9 +46,7 @@ module.exports.postCreate = (req, res) => {
   req.body.id = shortid.generate();
 
   var saltRounds = 10
-  req.body.password = bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
-    // Store hash in your password DB.
-});
+  req.body.password = bcrypt.hashSync(req.body.password, saltRounds)
 
   db.get("users").push(req.body).write();
   res.redirect("/users");

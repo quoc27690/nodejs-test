@@ -17,9 +17,7 @@ module.exports.postLogin = (req, res) => {
     return;
   }
 
-  var comparePassword = bcrypt.compare(password, user.password, function(err, result) {
-    // result == false
-});
+  var comparePassword = bcrypt.compareSync(password, user.password);
 
   if (!comparePassword) {
     res.render("auth/login", {
