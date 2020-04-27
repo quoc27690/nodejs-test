@@ -1,6 +1,8 @@
 const db = require("../db");
 const shortid = require("shortid");
 
+const bcrypt = require("bcrypt");
+
 module.exports.index = (req, res) =>
   res.render("users/index", {
     users: db.get("users").value(),
@@ -42,6 +44,11 @@ module.exports.delete = (req, res) => {
 
 module.exports.postCreate = (req, res) => {
   req.body.id = shortid.generate();
+
+  const saltRounds = 10;
+  req.body.password = bcrypt.hash(req.body.password, saltRounds,function(err, hash) {
+    // Store hash in your password DB.
+});
 
   db.get("users").push(req.body).write();
   res.redirect("/users");
