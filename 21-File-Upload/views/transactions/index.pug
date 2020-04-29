@@ -24,3 +24,35 @@ block content
               a Completed
             a(href="/transactions/" + transaction.id + '/edit', class='btn btn-success mr-3') Edit
             a(href="/transactions/" + transaction.id + "/delete", class='btn btn-warning') Delete
+  br
+  nav(aria-label='Page navigation example')
+    ul.pagination.justify-content-center
+      li.page-item
+        a.page-link(href='/transactions?page=1')
+          span &laquo;
+
+      if(page === 1)
+        li.page-item
+          a.page-link(href='/transactions?page=1') 1
+        li.page-item
+          a.page-link(href='/transactions?page=2') 2
+        li.page-item
+          a.page-link(href='/transactions?page=3') 3
+      else
+        if(page < numberPage)
+          li.page-item
+            a.page-link(href=`/transactions?page=${page-1}`)= page - 1
+          li.page-item
+            a.page-link(href=`/transactions?page=${page}`)= page
+          li.page-item
+            a.page-link(href=`/transactions?page=${page+1}`)= page + 1
+        else
+          li.page-item
+            a.page-link(href=`/transactions?page=${page-2}`)= page - 2
+          li.page-item
+            a.page-link(href=`/transactions?page=${page-1}`)= page - 1
+          li.page-item
+            a.page-link(href=`/transactions?page=${page}`)= page
+      li.page-item
+        a.page-link(href='/transactions?page=' + numberPage)
+          span &raquo;

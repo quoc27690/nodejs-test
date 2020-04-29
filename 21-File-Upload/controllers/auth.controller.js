@@ -51,5 +51,5 @@ module.exports.postLogin = (req, res) => {
 
   // Trước khi redirect sẽ set cho 1 cái cookie
   res.cookie("userId", user.id, { signed: true });
-  res.redirect("/users");
+  res.redirect("/");
 };

@@ -3,14 +3,17 @@ const shortid = require("shortid");
 
 module.exports.index = (req, res) => {
   // Lấy số trang về
-  var page = req.query.page || 1; // n
+  var page = parseInt(req.query.page) || 1; // n
   var perPage = 3; // x
+  var numberPage = Math.ceil(db.get("transactions").value().length / perPage)
 
   var start = (page - 1) * perPage;
   var end = page * perPage;
 
   res.render("transactions/index", {
     transactions: db.get("transactions").value().slice(start,end),
+    page: page,
+    numberPage: numberPage
   });
 };
 

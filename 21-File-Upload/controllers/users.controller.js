@@ -8,6 +8,7 @@ module.exports.index = (req, res) =>
     users: db.get("users").value(),
   });
 
+  
 module.exports.search = (req, res) => {
   var q = req.query.q;
   var matchUsers = db
@@ -21,27 +22,13 @@ module.exports.search = (req, res) => {
   });
 };
 
+
 module.exports.create = (req, res) => {
   // Test cookie
   console.log(req.cookies);
 
   res.render("users/create");
 };
-
-module.exports.edit = (req, res) => {
-  var id = req.params.id;
-  var user = db.get("users").find({ id: id }).value();
-  res.render("users/edit", {
-    user: user,
-  });
-};
-
-module.exports.delete = (req, res) => {
-  var id = req.params.id;
-  db.get("users").remove({ id: id }).write();
-  res.redirect("/users");
-};
-
 module.exports.postCreate = (req, res) => {
   req.body.id = shortid.generate();
   req.body.avatar = req.file.path.split('\\').slice(1).join('\\');
@@ -54,10 +41,25 @@ module.exports.postCreate = (req, res) => {
   res.redirect("/users");
 };
 
+
+module.exports.edit = (req, res) => {
+  var id = req.params.id;
+  var user = db.get("users").find({ id: id }).value();
+  res.render("users/edit", {
+    user: user,
+  });
+};
 module.exports.postEdit = (req, res) => {
   db.get("users")
     .find({ id: req.body.id })
     .assign({ name: req.body.name, phone: req.body.phone })
     .write();
+  res.redirect("/users");
+};
+
+
+module.exports.delete = (req, res) => {
+  var id = req.params.id;
+  db.get("users").remove({ id: id }).write();
   res.redirect("/users");
 };
