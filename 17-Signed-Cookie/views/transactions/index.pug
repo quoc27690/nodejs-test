@@ -1,0 +1,33 @@
+extends ../../layouts/common
+
+block content
+
+  h1 Transactions
+
+  h4
+    a(href="/") Back Home
+
+  h4
+    a(href="/transactions/create") Create New A Transaction
+
+  table(style="width: 500px; text-align: left")
+    tr
+      th User Name
+      th Book Title
+      th isComplete
+      th Edit
+      th Delete
+    each transaction in transactions
+      tr
+        td= transaction.userName
+        td= transaction.bookTitle
+        td
+          if !transaction.isComplete
+            a(href="/transactions/" + transaction.id + '/complete') Not complete
+          else 
+            a Completed
+        td 
+          a(href="/transactions/" + transaction.id + '/edit') Edit
+        td  
+          a(href="/transactions/" + transaction.id + "/delete") Delete
+
