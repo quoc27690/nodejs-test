@@ -52,7 +52,7 @@ module.exports.edit = (req, res) => {
 module.exports.postEdit = (req, res) => {
   db.get("users")
     .find({ id: req.body.id })
-    .assign({ name: req.body.name, phone: req.body.phone })
+    .assign({ name: req.body.name})
     .write();
   res.redirect("/users");
 };
