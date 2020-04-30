@@ -35,6 +35,12 @@ module.exports.search = (req, res) => {
 
 
 module.exports.create = (req, res) => res.render("books/create");
+module.exports.postCreate = (req, res) => {
+  req.body.id = shortid.generate();
+  db.get("books").push(req.body).write();
+  res.redirect("/books");
+};
+
 
 
 module.exports.view = (req, res) => {
@@ -65,11 +71,6 @@ module.exports.postEdit = (req, res) => {
 module.exports.delete = (req, res) => {
   var id = req.params.id;
   db.get("books").remove({ id: id }).write();
-  res.redirect("/books");
-};
-module.exports.postCreate = (req, res) => {
-  req.body.id = shortid.generate();
-  db.get("books").push(req.body).write();
   res.redirect("/books");
 };
 

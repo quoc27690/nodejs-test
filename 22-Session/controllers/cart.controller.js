@@ -1,8 +1,8 @@
 const db = require("../db");
 
 module.exports.addToCart = (req, res) => {
-  var bookId = req.params.bookId;
-  var sessionId = req.signedCookies.sessionId;
+  var bookId = req.params.bookId; // "req.params.bookId" là từ index gọi lên thanh địa chỉ
+  var sessionId = req.signedCookies.sessionId; // "req.signedCookies.sessionId" được tạo từ "session.middleware.js"
 
   if (!sessionId) {
     res.redirect("/books");

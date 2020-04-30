@@ -39,8 +39,8 @@ app.get("/", (req, res) =>
 
 app.use(
   "/books",
-  authMiddleware.requireAuth,
-  adminMiddleware.requireAdmin,
+  // authMiddleware.requireAuth,
+  // adminMiddleware.requireAdmin,
   booksRoutes
 );
 app.use(
