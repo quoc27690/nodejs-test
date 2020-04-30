@@ -1,0 +1,65 @@
+extends ../../layouts/common
+
+block content
+
+  h1 Books
+
+  div(class='d-flex')
+    h4
+      a.btn.btn-primary(href="/", class='btn btn-primary mr-3') Back Home
+
+    h4
+      a(href="/books/create", class='btn btn-info mr-3') Create New A Book
+
+    h4
+      a(href="/books/", class='btn btn-success') Show All Books
+
+  div(class='d-flex')
+    form.form-inline(action="/books/search",method='GET')
+      .form-group
+        input(type="text", name='q', placeholder='Search With Title', class="form-control", value= q ? q : "")
+        button(class='btn btn-primary ml-3') Search
+    
+  .container 
+    .row.justify-content-around
+      each book in books
+        .card(class='col-md-4 mt-3')
+          img.card-img-top(src='https://loremflickr.com/320/240/dog', alt='Card image cap')
+          .card-body
+            h5.card-title= book.title
+            a(href="/books/" + book.id, class='btn btn-success mr-3') View
+            a(href="/books/" + book.id + '/edit', class='btn btn-info mr-3') Edit
+            a(href="/books/" + book.id + "/delete", class='btn btn-warning mr-3') Delete
+            a(href="/cart/add/" +  book.id, class='btn btn-primary') add
+  br
+  nav(aria-label='Page navigation example')
+  ul.pagination.justify-content-center
+    li.page-item
+      a.page-link(href='/books?page=1')
+        span &laquo;
+
+    if(page === 1)
+      li.page-item
+        a.page-link(href='/books?page=1') 1
+      li.page-item
+        a.page-link(href='/books?page=2') 2
+      li.page-item
+        a.page-link(href='/books?page=3') 3
+    else
+      if(page < numberPage)
+        li.page-item
+          a.page-link(href=`/books?page=${page-1}`)= page - 1
+        li.page-item
+          a.page-link(href=`/books?page=${page}`)= page
+        li.page-item
+          a.page-link(href=`/books?page=${page+1}`)= page + 1
+      else
+        li.page-item
+          a.page-link(href=`/books?page=${page-2}`)= page - 2
+        li.page-item
+          a.page-link(href=`/books?page=${page-1}`)= page - 1
+        li.page-item
+          a.page-link(href=`/books?page=${page}`)= page
+    li.page-item
+      a.page-link(href='/books?page=' + numberPage)
+        span &raquo;

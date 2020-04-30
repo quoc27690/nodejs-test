@@ -1,0 +1,26 @@
+extends ../../layouts/common
+
+block content
+
+  h1 Create Transaction
+
+  form(action="/transactions/create", method='POST')
+    table
+      tr
+        td 
+          label User Name:
+        td 
+          select(name="userName")
+            each user in users
+              option= user.name
+      tr
+        td
+          label Book Title:
+        td  
+          select(name="bookTitle")
+            each book in books
+              option= book.title
+      tr  
+        td
+        td
+          button Create
