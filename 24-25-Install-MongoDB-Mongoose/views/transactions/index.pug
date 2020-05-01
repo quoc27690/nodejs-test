@@ -1,0 +1,58 @@
+extends ../../layouts/common
+
+block content
+
+  h1 Transactions
+
+  h4
+    a(href="/", class='btn btn-primary') Back Home
+
+  h4
+    a(href="/transactions/create", class='btn btn-primary') Create New A Transaction
+
+  .container 
+    .row.justify-content-around
+      each transaction in transactions
+        .card(class='col-md-4 mt-3')
+          img.card-img-top(src='https://loremflickr.com/320/240/dog', alt='Card image cap')
+          .card-body
+            h5.card-title= transaction.userName
+            h4.card-text= transaction.bookTitle
+            if !transaction.isComplete
+              a(href="/transactions/" + transaction.id + '/complete', class='btn btn-warning mr-3') Not complete
+            else 
+              a(class='btn btn-success mr-3') Completed
+            a(href="/transactions/" + transaction.id + '/edit', class='btn btn-primary mr-3') Edit
+            a(href="/transactions/" + transaction.id + "/delete", class='btn btn-info') Delete
+  br
+  nav(aria-label='Page navigation example')
+    ul.pagination.justify-content-center
+      li.page-item
+        a.page-link(href='/transactions?page=1')
+          span &laquo;
+
+      if(page === 1)
+        li.page-item
+          a.page-link(href='/transactions?page=1') 1
+        li.page-item
+          a.page-link(href='/transactions?page=2') 2
+        li.page-item
+          a.page-link(href='/transactions?page=3') 3
+      else
+        if(page < numberPage)
+          li.page-item
+            a.page-link(href=`/transactions?page=${page-1}`)= page - 1
+          li.page-item
+            a.page-link(href=`/transactions?page=${page}`)= page
+          li.page-item
+            a.page-link(href=`/transactions?page=${page+1}`)= page + 1
+        else
+          li.page-item
+            a.page-link(href=`/transactions?page=${page-2}`)= page - 2
+          li.page-item
+            a.page-link(href=`/transactions?page=${page-1}`)= page - 1
+          li.page-item
+            a.page-link(href=`/transactions?page=${page}`)= page
+      li.page-item
+        a.page-link(href='/transactions?page=' + numberPage)
+          span &raquo;
