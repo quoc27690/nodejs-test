@@ -51,7 +51,10 @@ module.exports.postLogin = async (req, res) => {
       return;
     }
   }
-
+  // Reset wrongLoginCount : 0 khi đăng nhập đúng
+  await User.findByIdAndUpdate(user.id, {
+    wrongLoginCount: 0
+  });
   // Trước khi redirect sẽ set cho 1 cái cookie
   res.cookie("userId", user.id, { signed: true });
   res.redirect("/");
