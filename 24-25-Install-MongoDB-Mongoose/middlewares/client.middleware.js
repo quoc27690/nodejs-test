@@ -1,14 +1,15 @@
-const db = require("../db");
+var User = require("../models/user.model");
+var Transaction = require("../models/transaction.model");
 
-module.exports.requireClient = (req, res, next) => {
-  var user = db.get("users").find({ id: req.signedCookies.userId }).value();
+module.exports.requireClient = async (req, res, next) => {
+  var id = req.signedCookies.userId;
+
+  var user = await User.findById({ _id: id });
+  var transactions = await Transaction.find({ userName: user.name });
 
   if (user.isAdmin === "false") {
     res.render("transactions/index", {
-      transactions: db
-        .get("transactions")
-        .filter({ userName: user.name })
-        .value(),
+      transactions: transactions,
     });
     return;
   }

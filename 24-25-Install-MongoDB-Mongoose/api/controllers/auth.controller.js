@@ -1,10 +1,8 @@
-var User = require("../models/user.model");
+var User = require("../../models/user.model");
 
 const bcrypt = require("bcrypt");
 
 const sgMail = require("@sendgrid/mail");
-
-module.exports.login = (req, res) => res.render("auth/login");
 
 module.exports.postLogin = async (req, res) => {
   var email = req.body.email;
@@ -32,9 +30,7 @@ module.exports.postLogin = async (req, res) => {
   };
 
   if (!comparePassword) {
-    await User.findByIdAndUpdate(user.id, {
-      wrongLoginCount: (user.wrongLoginCount += 1),
-    });
+    user.wrongLoginCount += 1;
     if (user.wrongLoginCount < 4) {
       res.render("auth/login", {
         errors: [`Wrong password Time: ${user.wrongLoginCount}`],
@@ -52,7 +48,5 @@ module.exports.postLogin = async (req, res) => {
     }
   }
 
-  // Trước khi redirect sẽ set cho 1 cái cookie
-  res.cookie("userId", user.id, { signed: true });
-  res.redirect("/");
+  res.json({ login: true });
 };

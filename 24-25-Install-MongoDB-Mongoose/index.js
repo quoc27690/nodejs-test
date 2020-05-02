@@ -3,8 +3,10 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const port = 3000;
-var mongoose = require('mongoose');
 var cookieParser = require("cookie-parser");
+var mongoose = require("mongoose");
+
+mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true });
 
 const booksRoutes = require("./routes/books.route");
 const usersRoutes = require("./routes/users.route");
@@ -12,12 +14,14 @@ const transactionsRoutes = require("./routes/transactions.route");
 const authRoutes = require("./routes/auth.route");
 const cartRoutes = require("./routes/cart.route");
 
+const apiBooksRoutes = require("./api/routes/books.route");
+const apiAuthRoutes = require("./api/routes/auth.route");
+const apiTransactionsRoutes = require("./api/routes/transactions.route");
+
 const authMiddleware = require("./middlewares/auth.middleware");
 const adminMiddleware = require("./middlewares/admin.middleware");
 const clientMiddleware = require("./middlewares/client.middleware");
 const sessionMiddleware = require("./middlewares/session.middleware");
-
-mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true});
 
 app.set("view engine", "pug");
 app.set("views", "./views");
@@ -59,6 +63,9 @@ app.use(
 );
 app.use("/auth", authRoutes);
 app.use("/cart", cartRoutes);
+app.use("/api/books", apiBooksRoutes);
+app.use("/api/auth/login", apiAuthRoutes);
+app.use("/api/transactions", apiTransactionsRoutes);
 
 app.listen(port, () =>
   console.log(`Example app listening at http://localhost:${port}`)

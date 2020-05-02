@@ -1,11 +1,33 @@
-var shortid = require("shortid");
-const db = require("../db");
+const User = require("../models/user.model.js");
+const Session = require("../models/session.model.js");
 
-module.exports = (req, res, next) => {
-  if (!req.signedCookies.sessionId) {
-    var sessionId = shortid.generate(); // Phải tạo ra 1 biến chứ nếu ko khi dùng lại "shortid.generate()" sẽ tạo ra 1 biến khác
-    res.cookie("sessionId", sessionId, { signed: true });
-    db.get('sessions').push({id:sessionId}).write()
+module.exports = async (req, res, next) => {
+  if (req.signedCookies.userId) {
+    let user = await User.findById(req.signedCookies.userId);
+    if (user) {
+      res.locals.user = user;
+    }
   }
+
+  if (!req.signedCookies.sessionId) {
+    let newSession = await Session.create({});
+
+    res.cookie("sessionId", newSession.id, {
+      signed: true
+    });
+  }
+
+  let session = await Session.findById(req.signedCookies.sessionId);
+
+  let count = 0;
+
+  if (session) {
+    for (let book of session.cart) {
+      count += book.quantity;
+    }
+  }
+
+  res.locals.count = count;
+
   next();
 };

@@ -1,7 +1,9 @@
-const db = require("../db");
+var User = require("../models/user.model");
 
-module.exports.requireAdmin = (req, res, next) => {
-  var user = db.get("users").find({ id: req.signedCookies.userId }).value();
+module.exports.requireAdmin = async (req, res, next) => {
+  var id = req.signedCookies.userId
+
+  var user = await User.findById({ _id: id });
 
   if (user.isAdmin === "false") {
     res.render("auth/login", {

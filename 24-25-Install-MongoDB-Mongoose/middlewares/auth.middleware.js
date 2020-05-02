@@ -1,12 +1,14 @@
-const db = require("../db");
+var User = require("../models/user.model");
 
-module.exports.requireAuth = (req, res, next) => {
-  if (!req.signedCookies.userId) {
+module.exports.requireAuth = async (req, res, next) => {
+  var id = req.signedCookies.userId
+
+  if (!id) {
     res.redirect("/auth/login");
     return;
   }
 
-  var user = db.get("users").find({ id: req.signedCookies.userId }).value();
+  var user = await User.findById({ _id: id });
 
   if (!user) {
     res.redirect("/auth/login");

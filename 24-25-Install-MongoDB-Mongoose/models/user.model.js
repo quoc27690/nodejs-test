@@ -6,7 +6,7 @@ var userSchema = new mongoose.Schema({
   password: String,
   isAdmin: String,
   avatar: String,
-  wrongLoginCount: Boolean,
+  wrongLoginCount: Number,
 });
 
 var User = mongoose.model("User", userSchema, "users"); // 'users': lưu vào collection users

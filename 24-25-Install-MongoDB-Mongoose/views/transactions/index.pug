@@ -25,34 +25,26 @@ block content
             a(href="/transactions/" + transaction.id + '/edit', class='btn btn-primary mr-3') Edit
             a(href="/transactions/" + transaction.id + "/delete", class='btn btn-info') Delete
   br
-  nav(aria-label='Page navigation example')
+  nav.mt-3
     ul.pagination.justify-content-center
       li.page-item
-        a.page-link(href='/transactions?page=1')
-          span &laquo;
-
-      if(page === 1)
-        li.page-item
-          a.page-link(href='/transactions?page=1') 1
-        li.page-item
-          a.page-link(href='/transactions?page=2') 2
-        li.page-item
-          a.page-link(href='/transactions?page=3') 3
-      else
-        if(page < numberPage)
-          li.page-item
-            a.page-link(href=`/transactions?page=${page-1}`)= page - 1
-          li.page-item
-            a.page-link(href=`/transactions?page=${page}`)= page
-          li.page-item
-            a.page-link(href=`/transactions?page=${page+1}`)= page + 1
-        else
-          li.page-item
-            a.page-link(href=`/transactions?page=${page-2}`)= page - 2
-          li.page-item
-            a.page-link(href=`/transactions?page=${page-1}`)= page - 1
-          li.page-item
-            a.page-link(href=`/transactions?page=${page}`)= page
+          a.page-link(href='/transactions?page=1') First
+      li.page-item(class= page === 1 ? 'disabled' : '')
+        a.page-link(href='/transactions?page=' + (page - 1)) &laquo
+      if (page === 1 || page === 2) 
+        - for (let i = 1; i <= 3; i++)
+          li.page-item(class= page === i ? 'active' : '')
+            a.page-link(href='/transactions?page=' + i)= i
+      else if (page == numberPage -1 || page == numberPage)
+        - for (let i = 2; i >= 0; i--)
+          li.page-item(class= page === (numberPage - i) ? 'active' : '')
+            a.page-link(href='/transactions?page=' + (numberPage - i))= numberPage - i
+      else      
+        - for (let i = page - 1; i <= page + 1; i++)
+            li.page-item(class= page === i ? 'active' : '')
+              a.page-link(href='/transactions?page=' + i)= i
+      li.page-item(class= page === numberPage ? 'disabled' : '')
+        a.page-link(href='/transactions?page=' + (page + 1)) &raquo
       li.page-item
-        a.page-link(href='/transactions?page=' + numberPage)
-          span &raquo;
+          a.page-link(href='/transactions?page=' + numberPage) Last
+    

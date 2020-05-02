@@ -1,24 +1,27 @@
-const db = require("../db");
+const Session = require("../models/session.model.js");
 
-module.exports.addToCart = (req, res) => {
-  var bookId = req.params.bookId; // "req.params.bookId" là từ index gọi lên thanh địa chỉ
-  var sessionId = req.signedCookies.sessionId; // "req.signedCookies.sessionId" được tạo từ "session.middleware.js"
+module.exports.addToCart = async (req, res) => {
+  let bookId = req.params.bookId;
+  let sessionId = req.signedCookies.sessionId;
 
   if (!sessionId) {
     res.redirect("/books");
-    return;
   }
 
-  // var count = db
-  //   .get("sessions")
-  //   .find({ id: sessionId })
-  //   .get("cart." + bookId, 0)
-  //   .value();
+  let session = await Session.findById(sessionId);
 
-  // db.get("sessions")
-  //   .find({ id: sessionId })
-  //   .set("cart." + bookId, count + 1)
-  //   .write();
+  let book = session.cart.find(
+    cartItem => cartItem.bookId.toString() === bookId
+  );
+
+  if (book) {
+    book.quantity += 1;
+    session.save();
+  } else {
+    await Session.findByIdAndUpdate(sessionId, {
+      $push: { cart: { bookId, quantity: 1 } }
+    });
+  }
 
   res.redirect("/books");
 };

@@ -1,9 +1,12 @@
 var Transaction = require("../models/transaction.model");
 var Book = require("../models/book.model");
 var User = require("../models/user.model");
+var Session = require("../models/session.model");
 
 module.exports.index = async (req, res) => {
   var transactions = await Transaction.find();
+  var books = await Book.find();
+  var users = await User.find();
 
   // Lấy số trang về
   var page = parseInt(req.query.page) || 1; // n
