@@ -5,7 +5,7 @@ module.exports.index = async (req, res) => {
 
   // Lấy số trang về
   var page = parseInt(req.query.page) || 1; // n
-  var perPage = 3; // x
+  var perPage = 6; // x
   var numberPage = Math.ceil(books.length / perPage);
   var start = (page - 1) * perPage;
   var end = page * perPage;

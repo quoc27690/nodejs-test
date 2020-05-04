@@ -16,11 +16,10 @@ block content
     input(type="text", name='q', placeholder='Search With Name', class='form-control')
     button(class='btn btn-primary ml-2') Search
     
-  table(style="width: 400px; text-align: left", class='table')
+  table(style="width: 400px; text-align: left", class='table', enctype="multipart/form-data")
     tr
       th Avatar
       th Name
-      th Phone
       th Edit
       th Delete
     each user in users
@@ -29,8 +28,6 @@ block content
           img(src= user.avatar, width="50", class='rounded-circle')
         td(class='align-middle')
           span= user.name
-        td(class='align-middle')
-          span= user.phone
         td(class='align-middle')
           a(href="/users/" + user.id + '/edit', class='btn btn-light ') Edit
         td(class='align-middle')

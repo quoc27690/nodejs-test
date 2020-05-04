@@ -2,18 +2,18 @@ const User = require("../models/user.model.js");
 const Session = require("../models/session.model.js");
 
 module.exports = async (req, res, next) => {
-  if (req.signedCookies.userId) {
-    let user = await User.findById(req.signedCookies.userId);
-    if (user) {
-      res.locals.user = user;
-    }
+  var id = req.signedCookies.userId;
+
+  if (id) {
+    let user = await User.findById(id);
+    res.locals.user = user;
   }
 
-  if (!req.signedCookies.sessionId) {
+  if (!id) {
     let newSession = await Session.create({});
 
     res.cookie("sessionId", newSession.id, {
-      signed: true
+      signed: true,
     });
   }
 

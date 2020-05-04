@@ -20,7 +20,6 @@ const apiTransactionsRoutes = require("./api/routes/transactions.route");
 
 const authMiddleware = require("./middlewares/auth.middleware");
 const adminMiddleware = require("./middlewares/admin.middleware");
-const clientMiddleware = require("./middlewares/client.middleware");
 const sessionMiddleware = require("./middlewares/session.middleware");
 
 app.set("view engine", "pug");
@@ -58,7 +57,6 @@ app.use(
 app.use(
   "/transactions",
   authMiddleware.requireAuth,
-  clientMiddleware.requireClient,
   transactionsRoutes
 );
 app.use("/auth", authRoutes);

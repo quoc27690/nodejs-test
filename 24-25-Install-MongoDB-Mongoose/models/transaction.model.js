@@ -1,11 +1,12 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-var transactionSchema = new mongoose.Schema({
-  userName: String,
-  bookTitle: String,
+const transactionSchema = new Schema({
+  userId: { type: Schema.Types.ObjectId, ref: "User" },
+  bookId: { type: Schema.Types.ObjectId, ref: "Book" },
   isComplete: Boolean
 });
 
-var Transaction = mongoose.model("Transaction", transactionSchema, "transactions"); // 'transactions': lưu vào collection transactions
+const Transaction = mongoose.model("Transaction", transactionSchema, "transacions");
 
 module.exports = Transaction;

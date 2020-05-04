@@ -2,8 +2,6 @@ var User = require("../models/user.model");
 
 const bcrypt = require("bcrypt");
 
-const sgMail = require("@sendgrid/mail");
-
 module.exports.login = (req, res) => res.render("auth/login");
 
 module.exports.postLogin = async (req, res) => {
@@ -22,15 +20,6 @@ module.exports.postLogin = async (req, res) => {
 
   var comparePassword = bcrypt.compareSync(password, user.password);
 
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  const msg = {
-    to: "bathu276@gmail.com",
-    from: "quoc27690@gmail.com",
-    subject: "Wrong password",
-    text: "Wrong password",
-    html: "Wrong password",
-  };
-
   if (!comparePassword) {
     await User.findByIdAndUpdate(user.id, {
       wrongLoginCount: (user.wrongLoginCount += 1),
@@ -43,7 +32,6 @@ module.exports.postLogin = async (req, res) => {
       return;
     }
     if (user.wrongLoginCount >= 4) {
-      sgMail.send(msg);
       res.render("auth/login", {
         errors: ["Your account has been locked!"],
         values: req.body,
@@ -55,7 +43,7 @@ module.exports.postLogin = async (req, res) => {
   await User.findByIdAndUpdate(user.id, {
     wrongLoginCount: 0
   });
-  // Trước khi redirect sẽ set cho 1 cái cookie
+  // Tạo cookie userId khi đăng nhập đúng
   res.cookie("userId", user.id, { signed: true });
   res.redirect("/");
 };

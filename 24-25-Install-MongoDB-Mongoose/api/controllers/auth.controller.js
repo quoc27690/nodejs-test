@@ -2,8 +2,6 @@ var User = require("../../models/user.model");
 
 const bcrypt = require("bcrypt");
 
-const sgMail = require("@sendgrid/mail");
-
 module.exports.postLogin = async (req, res) => {
   var email = req.body.email;
   var password = req.body.password;
@@ -19,15 +17,6 @@ module.exports.postLogin = async (req, res) => {
   }
 
   var comparePassword = bcrypt.compareSync(password, user.password);
-
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  const msg = {
-    to: "bathu276@gmail.com",
-    from: "quoc27690@gmail.com",
-    subject: "Wrong password",
-    text: "Wrong password",
-    html: "Wrong password",
-  };
 
   if (!comparePassword) {
     user.wrongLoginCount += 1;

@@ -46,7 +46,7 @@ module.exports.postCreate = async (req, res) => {
 module.exports.edit = async (req, res) => {
   var id = req.params.id;
 
-  user = await User.find({ _id: id });
+  user = await User.findOne({ _id: id });
 
   res.render("users/edit", {
     user: user,
